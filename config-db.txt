@@ -1,0 +1,4 @@
+jbbcDriver=com.mysql.cj.jdbc.Driver
+urlDataSource=jdbc:mysql://localhost:3306/scolarite?serverTimezone=UTC
+user=root
+pwd=
