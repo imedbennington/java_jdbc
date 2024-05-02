@@ -68,5 +68,36 @@ public class Main {
                 System.out.println("No student found with the provided ID.");
             }
         }
+        // Create an Etudiant object with the updated values
+        Etudiant et2 = new Etudiant();
+        et2.setName("imed");
+        et2.setFamilyName("Imed");
+        et2.setMail("Mail");
+        et2.setState("State");
+
+        // Prompt the user to enter the ID of the student to update
+        //oScanner scanner = new Scanner(System.in);
+        System.out.println("Enter the ID of the student to update:");
+        Long id = Long.valueOf(scanner.nextLine());
+
+        // Set the ID for the updated Etudiant object
+        et2.setIdEtudiant(id);
+
+        // Call the updateEtudiant method to update the record in the database
+        Etudiant updatedEtudiant = scl.updateEtudiant(et2);
+
+        if (updatedEtudiant != null) {
+            System.out.println("Student with ID " + id + " updated successfully:");
+            System.out.println("Name: " + updatedEtudiant.getName());
+            System.out.println("Family Name: " + updatedEtudiant.getFamilyName());
+            System.out.println("Mail: " + updatedEtudiant.getMail());
+            System.out.println("State: " + updatedEtudiant.getState());
+        } else {
+            System.out.println("Failed to update student with ID " + id + ".");
+        }
+
+        System.out.println("Enter the ID of the student to delete:");
+        Long id2 = Long.valueOf(scanner.nextLine());
+        scl.deleteEtudiant(id2);
     }
 }

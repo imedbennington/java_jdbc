@@ -144,11 +144,46 @@ private Connection connection;
 
     @Override
     public Etudiant updateEtudiant(Etudiant et) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String sql = "UPDATE etudiant SET name = ?, familyname = ?, mail = ?, estate = ? WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, et.getName());
+            ps.setString(2, et.getFamilyName());
+            ps.setString(3, et.getMail());
+            ps.setString(4, et.getState());
+            ps.setLong(5, et.getIdEtudiant()); // Set the id parameter for the WHERE clause
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected > 0) {
+                // If the update was successful, return the updated Etudiant object
+                return et;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources
+            // Handle SQLException and close resources properly
+        }
+
+        // If the update failed or an exception occurred, return null
         return null;
     }
 
     @Override
     public void deleteEtudiant(Long id) {
-
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            PreparedStatement ps = connection.prepareStatement("delete from etudiant where id = ?");
+            ps.setLong(1, id);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Student with ID " + id + " deleted successfully.");
+            } else {
+                System.out.println("No student found with ID " + id + ". No deletion performed.");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
